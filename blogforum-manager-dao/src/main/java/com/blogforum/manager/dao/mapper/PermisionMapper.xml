@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blogforum.manager.dao.mapper.PermisionMapper">
+    
+    
+    <sql id="permisionColumns">
+		id,
+		name,
+		controller
+    </sql>
+    
+    <resultMap type="com.blogforum.manager.pojo.entity.Permision" id="permisionMap">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="controller" column="controller" />
+    </resultMap>
+    
+    
+    <!-- 添加角色 -->
+	<insert id="save" parameterType="com.blogforum.manager.pojo.entity.Permision">
+		insert into 
+		permision(
+			name,controller
+		) 
+		values (
+			#{name},#{controller}
+		)
+	</insert>
+	
+	<select id="queryList" resultMap="permisionMap">
+	    select
+	    	<include refid="permisionColumns"/>
+	    from 
+	    	permision
+	    order by
+	    	id desc
+	</select>
+	
+	<select id="get" parameterType="com.blogforum.manager.pojo.entity.Permision" resultType="com.blogforum.manager.pojo.entity.Permision">
+	    select
+	    	<include refid="permisionColumns"/>
+	    from 
+	    	permision
+	    where
+	    	id = #{id}
+	</select>
+	
+	
+	<update id="update" parameterType="com.blogforum.manager.pojo.entity.Permision">
+	    update permision 
+	    set
+	    	name = #{name},controller=#{controller}
+	    where
+	    	id = #{id}
+	    
+	</update>
+	<delete id="delete" parameterType="com.blogforum.manager.pojo.entity.Permision" >
+	    delete from permision where id = #{id}
+	</delete>
+	
+	
+
+</mapper>
