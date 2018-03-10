@@ -118,7 +118,7 @@ public class RealmSessionFilter extends OncePerRequestFilter {
 	 * @version V1.0
 	 */
 	private void loginAgain(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		String loginPage = request.getScheme() + "://" + managerUrl + ":" + request.getServerPort()
+		String loginPage = managerUrl + ":" + request.getServerPort()
 		+ request.getContextPath() + "/login.jsp";
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
