@@ -151,12 +151,12 @@
 									</span>
 								</a>
 								<ul class="submenu bg-palette4">
-									<li><a class="J_menuItem" href="http://www.bojiw.com:9000" target="_blank"><span class="submenu-label">docker管理</span></a></li>
-									<li><a class="J_menuItem" href="http://dubbo.bojiw.com" target="_blank"><span class="submenu-label">dubbo管理</span></a></li>
-									<li><a class="J_menuItem" href="http://rabbitmq.bojiw.com" target="_blank"><span class="submenu-label">rabbitmq管理</span></a></li>
-									<li><a class="J_menuItem" href="http://solr.bojiw.com/solr" target="_blank"><span class="submenu-label">solr管理</span></a></li>
-									<li><a class="J_menuItem" href="http://nexus.bojiw.com:8081/nexus/" target="_blank"><span class="submenu-label">nexus管理</span></a></li>
-									<li><a class="J_menuItem" href="http://jenkins.bojiw.com:8080/jenkins/" target="_blank"><span class="submenu-label">jenkins管理</span></a></li>
+									<li><a class="J_menu" href="http://www.bojiw.com:9000" target="_blank"><span class="submenu-label">docker管理</span></a></li>
+									<li><a class="J_menu" href="http://dubbo.bojiw.com" target="_blank"><span class="submenu-label">dubbo管理</span></a></li>
+									<li><a class="J_menu" href="http://rabbit.bojiw.com" target="_blank"><span class="submenu-label">rabbitmq管理</span></a></li>
+									<li><a class="J_menu" href="http://solr.bojiw.com/solr" target="_blank"><span class="submenu-label">solr管理</span></a></li>
+									<li><a class="J_menu" href="http://nexus.bojiw.com:8081/nexus/" target="_blank"><span class="submenu-label">nexus管理</span></a></li>
+									<li><a class="J_menu" href="http://jenkins.bojiw.com:8080/jenkins/" target="_blank"><span class="submenu-label">jenkins管理</span></a></li>
 								</ul>
 							</li>
 						</ul>

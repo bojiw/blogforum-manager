@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,6 +30,9 @@ public class RealmSessionFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private RoleService roleService;
+	
+	@Value("${manager.url}")
+	private String managerUrl;
 	
 	private String exception;
 
@@ -114,7 +118,7 @@ public class RealmSessionFilter extends OncePerRequestFilter {
 	 * @version V1.0
 	 */
 	private void loginAgain(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		String loginPage = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+		String loginPage = request.getScheme() + "://" + managerUrl + ":" + request.getServerPort()
 		+ request.getContextPath() + "/login.jsp";
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
