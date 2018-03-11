@@ -137,6 +137,7 @@
 								<ul class="submenu bg-palette4">
 									<li><a class="J_menuItem" href="role/list.jsp"><span class="submenu-label">角色设置</span></a></li>
 									<li><a class="J_menuItem" href="permision/list.jsp"><span class="submenu-label">权限设置</span></a></li>
+									<li><a class="J_menuItem" href="rolepermision/list.jsp"><span class="submenu-label">权限关联设置</span></a></li>
 								</ul>
 							</li>
 							<li class="openable bg-palette3">
@@ -329,10 +330,12 @@
 	    <!-- Placed at the end of the document so the pages load faster -->
 		
 		<!-- Jquery -->
-		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 		
 		<!-- Bootstrap -->
-	    <script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    	<script src="https://cdn.bootcss.com/bootstrap-3-typeahead/3.1.0/bootstrap3-typeahead.min.js"></script>
+	    
 	  
 		<!-- Flot -->
 

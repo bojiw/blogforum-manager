@@ -127,6 +127,9 @@
 	    where
 	    	del_flag = 'N'
 	    <if test="name != null and name != ''">
+	        and id =#{id}
+	    </if>
+	    <if test="name != null and name != ''">
 	        and name =#{name}
 	    </if>
 	</select>

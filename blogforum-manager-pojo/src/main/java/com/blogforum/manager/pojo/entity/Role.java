@@ -47,6 +47,13 @@ public class Role extends DataEntity<Role> {
 	 * 拥有的权限
 	 */
 	private List<Permision> permisions;
+	
+	
+	public Role() {
+	}
+	public Role(int id) {
+		this.id = id;
+	}
 
 	public int getId() {
 		return id;

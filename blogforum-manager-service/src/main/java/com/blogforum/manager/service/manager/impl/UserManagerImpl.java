@@ -22,7 +22,7 @@ public class UserManagerImpl implements UserManager {
 	public UserAllCountVO getUserCount() {
 		
 		//获取所有注册用户总数
-		CountVO allUserCountVO = getStatusCount(null, "获取所有注册用户总数");
+		CountVO allUserCountVO = getStatusCount(null, "历史注册用户总数");
 		//获取正常状态用户总数
 		CountVO activeUserCount = getStatusCount(UserStatusEnum.ACTIVE, "正常状态用户总数");
 		//最近一个月注册用户总数

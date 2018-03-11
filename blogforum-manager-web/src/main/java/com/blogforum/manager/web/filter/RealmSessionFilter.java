@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class RealmSessionFilter extends OncePerRequestFilter {
 				filterChain.doFilter(request, response);
 			}else {
 				// 判断是否ajax请求
-				if (!(request.getHeader("accept").indexOf("application/json") > -1 || (request
+				if (StringUtils.contains(servletPath, ".jsp") || !(request.getHeader("accept").indexOf("application/json") > -1 || (request
 									.getHeader("X-Requested-With") != null && request.getHeader(
 														"X-Requested-With").indexOf("XMLHttpRequest") > -1))) {
 					//页面请求返回跳转提示

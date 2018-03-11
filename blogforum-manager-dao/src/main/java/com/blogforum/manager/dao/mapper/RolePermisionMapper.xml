@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blogforum.manager.dao.mapper.RolePermisionMapper">
+    
+    
+    <sql id="rolePermisionColumns">
+		id,
+		role_id roleId,
+		permision_id permisionId
+    </sql>
+    
+    <resultMap type="com.blogforum.manager.pojo.entity.RolePermision" id="rolePermisionMap">
+        <id property="id" column="id" />
+        <result property="roleId" column="roleId" />
+        <result property="permisionId" column="permisionId" />
+    </resultMap>
+    
+    
+    <!-- 添加角色权限关联-->
+	<insert id="save" parameterType="com.blogforum.manager.pojo.entity.RolePermision">
+		insert into 
+		role_permision(
+			role_id,permision_id
+		) 
+		values (
+			#{roleId},#{permisionId}
+		)
+	</insert>
+	
+	<select id="queryList" resultMap="rolePermisionMap">
+	    select
+	    	<include refid="rolePermisionColumns"/>
+	    from 
+	    	role_permision
+	    order by
+	    	id desc
+	</select>
+	
+	<select id="queryListByRoleId" parameterType="com.blogforum.manager.pojo.entity.RolePermision" resultMap="rolePermisionMap">
+	    select
+	    	<include refid="rolePermisionColumns"/>
+	    from 
+	    	role_permision
+	    where
+	    	role_id = #{roleId}
+	    order by
+	    	id desc
+	</select>
+
+	
+		<select id="queryListByPermisionId" parameterType="com.blogforum.manager.pojo.entity.RolePermision" resultMap="rolePermisionMap">
+	    select
+	    	<include refid="rolePermisionColumns"/>
+	    from 
+	    	role_permision
+	    where
+	    	permision_id = #{permisionId}
+	    order by
+	    	id desc
+	</select>
+	
+	
+	<select id="get" parameterType="com.blogforum.manager.pojo.entity.RolePermision" resultType="com.blogforum.manager.pojo.entity.RolePermision">
+	    select
+	    	<include refid="rolePermisionColumns"/>
+	    from 
+	    	role_permision
+	    where
+	    	id = #{id}
+	</select>
+	
+	
+	<update id="update" parameterType="com.blogforum.manager.pojo.entity.RolePermision">
+	    update role_permision 
+	    set
+	    	role_id = #{roleId},permision_id=#{permisionId}
+	    where
+	    	id = #{id}
+	    
+	</update>
+	<delete id="delete" parameterType="com.blogforum.manager.pojo.entity.RolePermision" >
+	    delete from role_permision where id = #{id}
+	</delete>
+	
+	
+
+</mapper>

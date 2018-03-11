@@ -19,6 +19,12 @@ public class RolePermision extends DataEntity<RolePermision> {
 
 	private int roleId;
 	private int permisionId;
+	
+	public RolePermision() {
+	}
+	public RolePermision(int id) {
+		this.id = id;
+	}
 
 	public long getId() {
 		return id;

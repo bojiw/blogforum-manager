@@ -3,7 +3,7 @@ package com.blogforum.manager.dao.mapper;
 import com.blogforum.manager.pojo.entity.Permision;
 
 /**
- * 操作管理员用户表
+ * 权限表用户表
  * 
  * @author wwd
  *

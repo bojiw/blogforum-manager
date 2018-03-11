@@ -127,7 +127,7 @@
 					    title:'修改',
 					    area: ['20%', '43%'],
 					    shift:1,
-					    content: "/permision/editpermision.jsp?id=" + id ,
+					    content: "/permision/edit.jsp?id=" + id ,
 					    end: function() {   
 					    	showlist($("#pageNo").val(),$("#pageSize").val());
 					    }
@@ -165,7 +165,7 @@
 					    title:'新增',
 					    area: ['20%', '43%'],
 					    shift:1,
-					    content: "/permision/addpermision.jsp",
+					    content: "/permision/add.jsp",
 					    end: function() {   
 					    	showlist(1,5);
 					    }
