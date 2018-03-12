@@ -29,11 +29,31 @@ public class RolePermisionController {
 	
 	@RequestMapping("/del.action")
 	@ResponseBody
-	public blogforumResult del(int id){
+	public blogforumResult del(Long id){
 		
 		rolePermisionManager.delRolePermision(new RolePermision(id));
 		return blogforumResult.ok();
 		
 	}
+	
+	@RequestMapping("/search.action")
+	@ResponseBody
+	public blogforumResult search(int id,String type,Integer pageSize,Integer pageNo){
+		
+		blogforumResult search = rolePermisionManager.search(pageSize, pageNo, type, id);
+		return search;
+		
+	}
+	
+	@RequestMapping("/add.action")
+	@ResponseBody
+	public blogforumResult add(RolePermision rolePermision){
+		rolePermisionManager.addRolePermision(rolePermision);
+		return blogforumResult.ok();
+		
+	}
+	
+	
+	
 
 }

@@ -49,7 +49,7 @@ public interface RolePermisionManager {
 	 * @author: wwd
 	 * @time: 2018年3月11日
 	 */
-	blogforumResult search(Integer pageSize,Integer pageNo,String type,String id);
+	blogforumResult search(Integer pageSize,Integer pageNo,String type,Integer id);
 	
 	
 	

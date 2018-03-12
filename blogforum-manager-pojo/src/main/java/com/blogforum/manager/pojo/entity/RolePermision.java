@@ -15,38 +15,44 @@ public class RolePermision extends DataEntity<RolePermision> {
 	/**
 	 * 编号
 	 */
-	private long id;
+	private Long id;
 
-	private int roleId;
-	private int permisionId;
+	private Integer roleId;
+	private Integer permisionId;
 	
 	public RolePermision() {
 	}
-	public RolePermision(int id) {
+	public RolePermision(Long id) {
 		this.id = id;
+	}
+	
+	public RolePermision(Long id, Integer roleId,Integer permisionId){
+		this.id = id;
+		this.roleId = roleId;
+		this.permisionId = permisionId;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(int roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 
-	public int getPermisionId() {
+	public Integer getPermisionId() {
 		return permisionId;
 	}
 
-	public void setPermisionId(int permisionId) {
+	public void setPermisionId(Integer permisionId) {
 		this.permisionId = permisionId;
 	}
 

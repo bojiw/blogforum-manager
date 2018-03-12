@@ -69,7 +69,7 @@
 								</table>
 								<input type="hidden" id = "pageNo"/>
 								<input type="hidden" id = "pageSize"/>
-								<div id="page" style="margin-left:70%">
+								<div id="page" style="margin-left:60%">
 									<ul class="pagination">
 									</ul>
 								</div>

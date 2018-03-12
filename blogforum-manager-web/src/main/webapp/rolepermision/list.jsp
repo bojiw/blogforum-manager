@@ -92,7 +92,7 @@
 								</table>
 								<input type="hidden" id = "pageNo"/>
 								<input type="hidden" id = "pageSize"/>
-								<div id="page" style="margin-left:70%">
+								<div id="page" style="margin-left:60%">
 									<ul class="pagination">
 									</ul>
 								</div>
@@ -148,19 +148,6 @@
 					
 				}
 				
-				//点击编辑
-				function edit(id){
-					layer.open({
-					    type: 2,
-					    title:'修改',
-					    area: ['20%', '43%'],
-					    shift:1,
-					    content: "/rolepermision/edit.jsp?id=" + id ,
-					    end: function() {   
-					    	showlist($("#pageNo").val(),$("#pageSize").val());
-					    }
-					});	
-				}
 				
 				//点击删除 
 				function del(id){
@@ -202,8 +189,13 @@
 				
 				//点击分页
 				function page(pageNo,pageSize,info){
-					console.info($('#search').val());
-					showlist(pageNo,pageSize);
+					//判断是否有输入关键字 有则搜索 没有则显示全部
+					if($("#searchkeyword").val()){
+						search(pageNo,pageSize);
+					}else{
+						showlist(pageNo,pageSize);
+					}
+					
 				}
 				
 				
@@ -213,7 +205,6 @@
 					source: function(query, process){
 						var url;
 						var type = $("#textType").val();
-						console.info(type)
 						if(type == "role"){
 							url='/role/queryList.action';
 						}else{
@@ -265,6 +256,51 @@
 			            return item.name;
 			        }
 				})
+				
+				//点击搜索
+				
+				$("#search").click(function(){
+					//判断是否有关键字 如果有则搜索 没有则获取全部
+					if($("#searchkeyword").val()){
+						search(1,5);
+					}else{
+						showlist(1,5);
+					}
+					
+				});
+				function search(pageNo,pageSize){
+					
+					var id = $("#searchid").val();
+					if(!id){
+						layer.msg("未找到关键字对应id");
+						return;
+					}
+					var type = $("#textType").val();
+					$.post("/rolepermision/search.action",{
+						id:id,
+						type:type,
+						pageSize:pageSize,
+						pageNo:pageNo
+					},function(data){
+						if(data == "no permision"){
+							layer.msg("没有权限");
+							return;
+						}
+						if(data.status != "200"){
+							layer.msg(data.msg);
+						}else{
+							var html = "";
+							jQuery.each(data.data.list,function(i,item){
+								html += getListHtml(i,item);
+							});
+							$("#permisiontbody").html(html);
+							$(".pagination").html(data.data.html);
+							$("#pageNo").val(data.data.pageNo);
+							$("#pageSize").val(data.data.pageSize);
+						}
+					});
+					
+				}
 			
 		</script>
 	

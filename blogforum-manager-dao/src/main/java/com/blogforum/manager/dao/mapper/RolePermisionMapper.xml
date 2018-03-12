@@ -29,38 +29,25 @@
 		)
 	</insert>
 	
-	<select id="queryList" resultMap="rolePermisionMap">
-	    select
-	    	<include refid="rolePermisionColumns"/>
-	    from 
-	    	role_permision
-	    order by
-	    	id desc
-	</select>
 	
-	<select id="queryListByRoleId" parameterType="com.blogforum.manager.pojo.entity.RolePermision" resultMap="rolePermisionMap">
+	<select id="queryList" parameterType="com.blogforum.manager.pojo.entity.RolePermision" resultMap="rolePermisionMap">
 	    select
 	    	<include refid="rolePermisionColumns"/>
 	    from 
 	    	role_permision
 	    where
-	    	role_id = #{roleId}
+	    	id > 0
+	    	<if test="roleId != null">
+	    	    and role_id = #{roleId}
+	    	</if>
+	    	<if test="permisionId != null">
+	    	    and permision_id = #{permisionId}
+	    	</if>
 	    order by
 	    	id desc
 	</select>
-
-	
-		<select id="queryListByPermisionId" parameterType="com.blogforum.manager.pojo.entity.RolePermision" resultMap="rolePermisionMap">
-	    select
-	    	<include refid="rolePermisionColumns"/>
-	    from 
-	    	role_permision
-	    where
-	    	permision_id = #{permisionId}
-	    order by
-	    	id desc
-	</select>
-	
+		
+		
 	
 	<select id="get" parameterType="com.blogforum.manager.pojo.entity.RolePermision" resultType="com.blogforum.manager.pojo.entity.RolePermision">
 	    select
