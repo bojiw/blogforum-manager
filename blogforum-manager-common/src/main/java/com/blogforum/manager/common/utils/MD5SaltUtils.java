@@ -6,6 +6,7 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 import com.blogforum.common.enums.BizErrorEnum;
+import com.blogforum.common.exception.BusinessException;
 import com.blogforum.manager.pojo.entity.AdminUser;
 import com.blogforum.manager.pojo.entity.User;
 
@@ -29,6 +30,7 @@ public class MD5SaltUtils {
 			result = encoder16(md.digest((addSalt(rawPassword, salt).getBytes("UTF-8"))));
 		} catch (Exception e) {
 			logger.error(BizErrorEnum.FAIL_ENCODE.getMsg(), e);
+			throw new BusinessException(BizErrorEnum.SYS_EXCEPTION);
 		}
 		return result;
 	}

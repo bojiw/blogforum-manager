@@ -9,33 +9,50 @@ import java.util.Date;
  ***********************************************************************/
 
 /** 管理员用户表 */
-public class AdminUser {
+public class AdminUser extends DataEntity<AdminUser> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4652218778148458926L;
 	/**
 	 * 编号
 	 */
-	public int id;
+	private int id;
 	/**
 	 * 登录用户名
 	 */
-	public String username;
+	private String username;
 	/**
 	 * 密码
 	 */
-	public String password;
+	private String password;
 	/**
 	 * 加盐
 	 */
-	public String salt;
+	private String salt;
+	
+	/**
+	 * 角色id
+	 */
+	private Integer roleId;
+	
 	/**
 	 * 角色
 	 */
-	public Role role;
+	private Role role;
 
 	/**
 	 * 创建时间
 	 */
-	public Date createDate;
+	private Date createDate;
+	
+	public AdminUser() {
+	}
 
+	public AdminUser(Integer id) {
+		this.id = id;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -82,6 +99,16 @@ public class AdminUser {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	
+	
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 	@Override

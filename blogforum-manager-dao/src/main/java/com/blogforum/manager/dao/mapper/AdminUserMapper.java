@@ -8,16 +8,8 @@ import com.blogforum.manager.pojo.entity.AdminUser;
  * @author wwd
  *
  */
-public interface AdminUserMapper {
-	/**
-	 * 插入管理员用户
-	 * 
-	 * @param adminUser
-	 * @author wwd
-	 * @date 2017年2月25日下午2:50:27
-	 * @version V1.0
-	 */
-	public int insert(AdminUser adminUser);
+public interface AdminUserMapper extends CrudMapper<AdminUser> {
+
 
 	/**
 	 * 通过用户名密码查询用户
@@ -39,7 +31,7 @@ public interface AdminUserMapper {
 	 * @date 2017年3月10日下午9:31:22
 	 * @version V1.0
 	 */
-	public AdminUser getByID(String adminUser_id);
+	public AdminUser getByID(Integer adminUserId);
 
 	/**
 	 * 通过用户名查询用户

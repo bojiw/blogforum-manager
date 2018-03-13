@@ -178,7 +178,7 @@
 					layer.open({
 					    type: 2,
 					    title:'新增',
-					    area: ['20%', '43%'],
+					    area: ['20%', '60%'],
 					    shift:1,
 					    content: "/rolepermision/add.jsp",
 					    end: function() {   

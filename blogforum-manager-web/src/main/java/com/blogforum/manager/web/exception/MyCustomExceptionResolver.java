@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.druid.support.json.JSONUtils;
 import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.exception.BusinessException;
-import com.blogforum.manager.service.adminuser.impl.AdminUserServiceImpl;
+import com.blogforum.manager.service.manager.impl.AdminUserManagerImpl;
 
 /**
  * 统一返回异常类
@@ -23,7 +23,7 @@ import com.blogforum.manager.service.adminuser.impl.AdminUserServiceImpl;
  * @author wwd pl
  */
 public class MyCustomExceptionResolver implements HandlerExceptionResolver {
-	private static Logger logger = Logger.getLogger(AdminUserServiceImpl.class);
+	private static Logger logger = Logger.getLogger(AdminUserManagerImpl.class);
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,

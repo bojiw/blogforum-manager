@@ -3,7 +3,6 @@ package com.blogforum.manager.web.controller;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +13,7 @@ import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.common.exception.BusinessException;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.manager.pojo.entity.AdminUser;
-import com.blogforum.manager.pojo.entity.Role;
-import com.blogforum.manager.service.adminuser.AdminUserService;
-import com.blogforum.manager.service.adminuser.impl.AdminUserServiceImpl;
+import com.blogforum.manager.service.manager.AdminUserManager;
 
 /**
  * 对管理员的操作Controller
@@ -27,31 +24,55 @@ import com.blogforum.manager.service.adminuser.impl.AdminUserServiceImpl;
 @Controller
 @RequestMapping("/adminuser")
 public class AdminUserController {
-	private static Logger		logger	= Logger.getLogger(AdminUserServiceImpl.class);
 
 	@Autowired
-	private AdminUserService	adminUserService;
+	private AdminUserManager	adminUserManager;
 
-	@RequestMapping(value = "/insert.actioin", method = { RequestMethod.POST })
+	@RequestMapping(value = "/add.action", method = { RequestMethod.POST })
 	@ResponseBody
 	public blogforumResult insert(String username, String password, Integer roleId, HttpSession session)
 						throws BusinessException {
 
-		AdminUser admin = (AdminUser) session.getAttribute("adminuser");
-		if (admin == null) {
-			logger.error(BizErrorEnum.NO_LOGIN.getMsg());
-			throw new BusinessException(BizErrorEnum.NO_LOGIN);
-		}
-
+		AdminUser loginAdmin = (AdminUser) session.getAttribute("adminuser");
 		AdminUser adminUser = checkInsert(username, password, roleId);
-		if (adminUser == null) {
-			logger.error("添加管理员用户所传参数非法,adminID:" + admin.getId());
-			throw new BusinessException(BizErrorEnum.NULL_PARAMETER);
-		}
-		blogforumResult result = adminUserService.insert(adminUser);
+		adminUser.setCreateUser(loginAdmin.getUsername());
+		blogforumResult result = adminUserManager.insert(adminUser);
 		return result;
 	}
+	
 
+	@RequestMapping(value = "/edit.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public blogforumResult update(AdminUser adminUser, HttpSession session)
+						throws BusinessException {
+
+		adminUserManager.update(adminUser);
+		return blogforumResult.ok();
+	}
+	
+	@RequestMapping(value = "/queryList.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public blogforumResult queryList(Integer pageNo, Integer pageSize){
+
+		blogforumResult adminUserList = adminUserManager.queryListPage(pageSize, pageNo);
+		return blogforumResult.ok(adminUserList);
+	}
+	
+	@RequestMapping(value = "/del.action", method = { RequestMethod.POST })
+	@ResponseBody
+	public blogforumResult del(Integer id){
+		adminUserManager.delete(id);
+		return blogforumResult.ok();
+	}
+	
+	
+	
+	@RequestMapping(value = "/get.action", method = { RequestMethod.GET })
+	@ResponseBody
+	public blogforumResult get(Integer id){
+		AdminUser adminUser = adminUserManager.getByID(id);
+		return blogforumResult.ok(adminUser);
+	}
 
 	/**
 	 * 验证添加的管理员参数是否正确
@@ -66,19 +87,13 @@ public class AdminUserController {
 	 */
 	private AdminUser checkInsert(String username, String password, Integer roleId) {
 		if (StringUtils.isBlank(username) && StringUtils.isBlank(password) && roleId == null) {
-			return null;
-		}
-
-		if (roleId <= 0 && roleId >= 30) {
-			return null;
+			throw new BusinessException(BizErrorEnum.NULL_PARAMETER);
 		}
 
 		AdminUser adminUser = new AdminUser();
 		adminUser.setUsername(username);
 		adminUser.setPassword(password);
-		Role role = new Role();
-		role.setId(roleId);
-		adminUser.setRole(role);
+		adminUser.setRoleId(roleId);
 		return adminUser;
 	}
 

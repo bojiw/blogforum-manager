@@ -1,16 +1,11 @@
 package com.blogforum.manager.service.dao.impl;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.blogforum.common.enums.BizErrorEnum;
 import com.blogforum.manager.dao.mapper.RoleMapper;
-import com.blogforum.manager.pojo.entity.Permision;
 import com.blogforum.manager.pojo.entity.Role;
 import com.blogforum.manager.pojo.page.Page;
 import com.blogforum.manager.service.dao.CrudService;

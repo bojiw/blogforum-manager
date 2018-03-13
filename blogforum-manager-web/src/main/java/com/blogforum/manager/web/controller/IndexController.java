@@ -15,18 +15,18 @@ import com.blogforum.common.exception.BusinessException;
 import com.blogforum.common.tools.blogforumResult;
 import com.blogforum.manager.common.utils.MD5SaltUtils;
 import com.blogforum.manager.pojo.entity.AdminUser;
-import com.blogforum.manager.service.adminuser.AdminUserService;
-import com.blogforum.manager.service.adminuser.impl.AdminUserServiceImpl;
+import com.blogforum.manager.service.manager.AdminUserManager;
+import com.blogforum.manager.service.manager.impl.AdminUserManagerImpl;
 import com.blogforum.manager.web.constant.ReturnViewPage;
 
 @Controller
 @RequestMapping("/")
 public class IndexController {
-	private static Logger		logger	= Logger.getLogger(AdminUserServiceImpl.class);
+	private static Logger		logger	= Logger.getLogger(AdminUserManagerImpl.class);
 
 	
 	@Autowired
-	private AdminUserService	adminUserService;
+	private AdminUserManager	adminUserManager;
 
 	/**
 	 * 首页请求
@@ -59,7 +59,7 @@ public class IndexController {
 			throw new BusinessException(BizErrorEnum.USER_LOGIN);
 		}
 		admin = checkLogin(username, password);
-		AdminUser adminresult = adminUserService.getByUserPwd(admin);
+		AdminUser adminresult = adminUserManager.getByUserPwd(admin);
 		if (adminresult == null) {
 			return blogforumResult.build(BizErrorEnum.FAIL_USERPWD, "false");
 		}
@@ -100,7 +100,7 @@ public class IndexController {
 		if (username == null || password == null) {
 			throw new BusinessException(BizErrorEnum.NULL_USERPWD);
 		}
-		AdminUser admin = adminUserService.getByUserName(username);
+		AdminUser admin = adminUserManager.getByUserName(username);
 		if (admin == null) {
 			throw new BusinessException(BizErrorEnum.NO_USER);
 		}
