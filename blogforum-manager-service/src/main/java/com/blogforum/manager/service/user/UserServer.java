@@ -2,9 +2,9 @@ package com.blogforum.manager.service.user;
 
 import java.util.Date;
 
+import com.blogforum.manager.pojo.page.Page;
+import com.blogforum.manager.pojo.vo.User;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
-import com.blogforum.sso.facade.model.SsoPage;
-import com.blogforum.sso.facade.model.SsoUserPageRequest;
 import com.blogforum.sso.facade.model.UserVO;
 
 public interface UserServer {
@@ -24,13 +24,13 @@ public interface UserServer {
 	
 
 	/**
-	 * 分页获取用户
+	 * 分页获取用户 status传空代表获取所有状态用户
 	 * @param request
 	 * @return
 	 * @author: wwd
 	 * @time: 2018年3月3日
 	 */
-	SsoPage<UserVO> queryAllUserPage(SsoUserPageRequest request);
+	Page<User> queryAllUserPage(Integer pageNo,Integer pageSize,UserStatusEnum status,String keyword);
 	
 	
 

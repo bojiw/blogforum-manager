@@ -120,7 +120,7 @@
 								</a>
 								<ul class="submenu bg-palette4">
 									<li><a class="J_menuItem" href="adminuser/list.jsp"><span class="submenu-label">管理员用户管理</span></a></li>
-									<li><a class="J_menuItem" href="dropzone.html"><span class="submenu-label">用户管理</span></a></li>
+									<li><a class="J_menuItem" href="user/list.jsp"><span class="submenu-label">用户管理</span></a></li>
 								</ul>
 							</li>
 							<li class="openable bg-palette3">

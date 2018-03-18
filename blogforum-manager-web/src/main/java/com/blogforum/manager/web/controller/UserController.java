@@ -17,11 +17,28 @@ public class UserController {
 	private UserManager userManager;
 
 	
-	@RequestMapping("/getCount")
+	@RequestMapping("/getCount.action")
 	@ResponseBody
 	public blogforumResult getCount() {
 		UserAllCountVO userCount = userManager.getUserCount();
 		return blogforumResult.ok(userCount);
 	}
+	
+	@RequestMapping("/queryList.action")
+	@ResponseBody
+	public blogforumResult queryList(Integer pageSize,Integer pageNo,String keyword) {
+		blogforumResult page = userManager.queryAllStatusUserPage(pageNo, pageSize, keyword);
+		return blogforumResult.ok(page);
+	}
+	
+	
+	@RequestMapping("/get.action")
+	@ResponseBody
+	public blogforumResult get(Integer pageSize,Integer pageNo,String keyword) {
+		blogforumResult page = userManager.queryAllStatusUserPage(pageNo, pageSize, keyword);
+		return blogforumResult.ok(page);
+	}
+	
+	
 
 }

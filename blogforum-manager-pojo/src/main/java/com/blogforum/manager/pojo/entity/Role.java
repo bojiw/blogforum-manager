@@ -17,7 +17,7 @@ public class Role extends DataEntity<Role> {
 	/**
 	 * 编号
 	 */
-	private int id;
+	private Integer id;
 	/**
 	 * 角色名称
 	 */
@@ -55,14 +55,14 @@ public class Role extends DataEntity<Role> {
 		this.id = id;
 	}
 
-	public int getId() {
+
+
+	public Integer getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-
 	public String getName() {
 		return name;
 	}

@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.blogforum.common.tools.DateUtils;
-import com.blogforum.manager.pojo.vo.UserAllCountVO;
+import com.blogforum.common.tools.blogforumResult;
+import com.blogforum.manager.pojo.page.Page;
 import com.blogforum.manager.pojo.vo.CountVO;
+import com.blogforum.manager.pojo.vo.User;
+import com.blogforum.manager.pojo.vo.UserAllCountVO;
 import com.blogforum.manager.service.manager.UserManager;
 import com.blogforum.manager.service.user.UserServer;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
+import com.blogforum.sso.facade.model.UserVO;
 
 @Component
 public class UserManagerImpl implements UserManager {
@@ -69,7 +73,22 @@ public class UserManagerImpl implements UserManager {
 		allUserCountVO.setMemo(memo);
 		return allUserCountVO;
 	}
+
+	@Override
+	public blogforumResult queryAllStatusUserPage(Integer pageNo, Integer pageSize,String keyword) {
+		
+		Page<User> userPage = userServer.queryAllUserPage(pageNo, pageSize, null,keyword);
+		
+		return blogforumResult.ok(userPage);
+	}
+
+	@Override
+	public blogforumResult getUser(String id) {
+		UserVO userVO = userServer.getUserByUserId(id);
+		return blogforumResult.ok(userVO);
+	}
 	
+
 	
 
 }

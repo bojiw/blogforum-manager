@@ -126,7 +126,7 @@
 	    	role
 	    where
 	    	del_flag = 'N'
-	    <if test="name != null and name != ''">
+	    <if test="id != null">
 	        and id =#{id}
 	    </if>
 	    <if test="name != null and name != ''">
