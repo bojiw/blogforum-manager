@@ -35,7 +35,7 @@ public class UserServerFacadeClientImpl implements UserServerFacadeClient {
 
 			@Override
 			public Result<SsoPage<UserVO>> execute() {
-				return userServerFacade.queryAllUserPage(request);
+				return userServerFacade.querySearchAllUserPage(request);
 			}
 		});
 		
