@@ -3,7 +3,7 @@ $(function(){
 	//loading-------------------------------------------------
 
     //设置用户总数
-	$.get("user/getCount", {
+	$.get("user/getCount.action", {
 		},function(data){
 		if(data.status != "200"){
 			layer.msg(data.msg);
@@ -21,7 +21,7 @@ $(function(){
 	});
     
 	//设置笔记总数
-	$.get("note/getCount", {
+	$.get("note/getCount.action", {
 	},function(data){
 	if(data.status != "200"){
 		layer.msg(data.msg);

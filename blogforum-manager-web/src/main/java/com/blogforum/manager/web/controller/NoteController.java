@@ -16,7 +16,7 @@ public class NoteController {
 	@Autowired
 	private NoteManager noteManager;
 	
-	@RequestMapping("/getCount")
+	@RequestMapping("/getCount.action")
 	@ResponseBody
 	private blogforumResult getCount(){
 		NoteAllCountVO noteCount = noteManager.getNoteCount();

@@ -34,8 +34,8 @@ public class UserController {
 	
 	@RequestMapping("/get.action")
 	@ResponseBody
-	public blogforumResult get(Integer pageSize,Integer pageNo,String keyword) {
-		blogforumResult page = userManager.queryAllStatusUserPage(pageNo, pageSize, keyword);
+	public blogforumResult get(String id) {
+		blogforumResult page = userManager.getUser(id);
 		return blogforumResult.ok(page);
 	}
 	
