@@ -3,6 +3,7 @@ package com.blogforum.manager.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.blogforum.common.tools.blogforumResult;
@@ -26,7 +27,7 @@ public class UserController {
 	
 	@RequestMapping("/queryList.action")
 	@ResponseBody
-	public blogforumResult queryList(Integer pageSize,Integer pageNo,String keyword) {
+	public blogforumResult queryList(@RequestParam(defaultValue = "10") Integer pageSize,@RequestParam(defaultValue = "1")Integer pageNo,String keyword) {
 		blogforumResult page = userManager.queryAllStatusUserPage(pageNo, pageSize, keyword);
 		return blogforumResult.ok(page);
 	}

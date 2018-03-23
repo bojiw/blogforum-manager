@@ -2,6 +2,8 @@ package com.blogforum.manager.pojo.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class User {
 	/**
 	 * 编号
@@ -72,6 +74,16 @@ public class User {
 	 * 出生城市
 	 */
 	private String	birthCity;
+	
+	// 创建时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date createDate; 
+
+	// 最后修改时间
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date updateDate; 
+	// 最后修改人
+	private String updateUser; 
 
 	public String getId() {
 		return id;
@@ -205,6 +217,31 @@ public class User {
 	public void setRoleCN(String roleCN) {
 		this.roleCN = roleCN;
 	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setUpdateUser(String updateUser) {
+		this.updateUser = updateUser;
+	}
+	
 	
 
 }

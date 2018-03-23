@@ -63,6 +63,9 @@ public class UserServerImpl implements UserServer {
 		user.setBirthProvince(userVO.getBirthProvince());
 		user.setCityLocation(userVO.getCityLocation());
 		user.setProvinceLocation(userVO.getProvinceLocation());
+		user.setCreateDate(userVO.getCreateDate());
+		user.setUpdateDate(userVO.getUpdateDate());
+		user.setUpdateUser(userVO.getUpdateUser());
 		return user;
 	}
 

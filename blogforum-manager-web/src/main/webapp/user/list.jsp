@@ -45,13 +45,6 @@
 					</div>
 							<div class="panel-body">
 								<div class="table-responsive" >	
-									<div class="row">
-										<div class="col-sm-6">
-											<div class="bk-margin-bottom-10">
-												<button id="addToTable" class="btn btn-info">新增 <i class="fa fa-plus"></i></button>
-											</div>
-										</div>
-									</div>
 									<div style="float: left;margin-left:62%;margin-bottom: 20px;">
 										<input type="text" style="float: left" class="form-control" id="searchkeyword" autocomplete="off" data-provide="typeahead" style="width: 210px;height: 30px;margin-left: 10px;margin-top: 3px"  placeholder="请输入完整用户名" / >
 										<input type="hidden" id="searchid" style="float: left;">
@@ -66,13 +59,13 @@
 										<tr>
 											<th style="width:5%">编号</th>
 											<th style="width:15%">用户名</th>
-											<th style="width:15%">角色名</th>
+											<th style="width:15%">角色</th>
+											<th style="width:15%">状态</th>
 											<th style="width:15%">创建时间</th>
-											<th style="width:15%">创建用户</th>
 											<th style="width:20%">操作</th>
 										</tr>
 									</thead>   
-									<tbody id="roletbody">								
+									<tbody id="userbody">								
 									</tbody>
 								</table>
 								<input type="hidden" id = "pageNo"/>
@@ -94,7 +87,7 @@
 				
 				//获取list数据
 				function showlist(pageNo,pageSize){
-					$.get("/adminuser/queryList.action", {
+					$.get("/user/queryList.action", {
 						pageSize:pageSize,
 						pageNo:pageNo
 						
@@ -110,9 +103,8 @@
 							jQuery.each(data.data.data.list,function(i,item){
 								html += getListHtml(i,item);
 							});
-							console.info(html);
-							$("#roletbody").html(html);
-							$(".pagination").html(data.data.html);
+							$("#userbody").html(html);
+							$(".pagination").html(data.data.data.html);
 							$("#pageNo").val(data.data.data.pageNo);
 							$("#pageSize").val(data.data.data.pageSize);
 						}
@@ -126,13 +118,9 @@
 					html += "<tr>";
 					html += "<td>" + i + "</td>";
 					html += "<td>" + item.username + "</td>";
-					html += "<td>" + item.role.name + "</td>"
+					html += "<td>" + item.roleCN + "</td>";
+					html += "<td>" + item.statusCN + "</td>"
 					html += "<td>" + timeStamp2String(item.createDate) + "</td>";
-					if(item.createUser){
-						html += "<td>" + item.createUser + "</td>";
-					}else{
-						html += "<td></td>";
-					}
 					
 					html += "<td><a style='margin-left:20px' class='btn btn-info' href='javascript:void(0);' onclick=edit('"+ item.id + "') >";
 					html += "<i class='fa fa-edit '></i> </a>";
@@ -149,7 +137,7 @@
 					    title:'修改',
 					    area: ['20%', '43%'],
 					    shift:1,
-					    content: "/adminuser/edit.jsp?id=" + id ,
+					    content: "/user/edit.jsp?id=" + id ,
 					    end: function() {   
 					    	showlist($("#pageNo").val(),$("#pageSize").val());
 					    }
@@ -161,7 +149,7 @@
 					layer.confirm('确定删除吗', {
 						  btn: ['确定','取消'] //按钮
 						}, function(){
-							$.post("adminuser/del.action",{
+							$.post("/user/del.action",{
 								id:id
 							},function(data){
 								if(data == "no permision"){
@@ -180,25 +168,53 @@
 						});
 				}
 				
-				//点击新增
-				$("#addToTable").click(function(){
-					layer.open({
-					    type: 2,
-					    title:'新增',
-					    area: ['20%', '50%'],
-					    shift:1,
-					    content: "/adminuser/add.jsp",
-					    end: function() {   
-					    	showlist(1,5);
-					    }
-					});	
-				});
 				
 				//点击分页
 				function page(pageNo,pageSize,info){
-					showlist(pageNo,pageSize);
+					//判断是否有输入关键字 有则搜索 没有则显示全部
+					if($("#searchkeyword").val()){
+						search(pageNo,pageSize);
+					}else{
+						showlist(pageNo,pageSize);
+					}
 				}
-				
+				$("#search").click(function(){
+					//判断是否有关键字 如果有则搜索 没有则获取全部
+					if($("#searchkeyword").val()){
+						search(1,5);
+					}else{
+						showlist(1,5);
+					}
+					
+				});
+				function search(pageNo,pageSize){
+					//用户名
+					var keyword = $("#searchkeyword").val()
+					$.post("/user/queryList.action",{
+						keyword:keyword,
+						pageSize:pageSize,
+						pageNo:pageNo
+					},function(data){
+						if(data == "no permision"){
+							layer.msg("没有权限");
+							return;
+						}
+						if(data.status != "200"){
+							layer.msg(data.msg);
+						}else{
+							var html = "";
+							jQuery.each(data.data.data.list,function(i,item){
+								html += getListHtml(i,item);
+							});
+							$("#userbody").html(html);
+							$(".pagination").html(data.data.data.html);
+							$("#pageNo").val(data.data.data.pageNo);
+							$("#pageSize").val(data.data.data.pageSize);
+						}
+					});
+					
+				}
+			
 				
 				function timeStamp2String(time){  
 				    var datetime = new Date();  
