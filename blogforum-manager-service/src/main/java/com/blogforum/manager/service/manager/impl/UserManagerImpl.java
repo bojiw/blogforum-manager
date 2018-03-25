@@ -3,6 +3,7 @@ package com.blogforum.manager.service.manager.impl;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.blogforum.common.tools.DateUtils;
@@ -14,13 +15,18 @@ import com.blogforum.manager.pojo.vo.UserAllCountVO;
 import com.blogforum.manager.service.manager.UserManager;
 import com.blogforum.manager.service.user.UserServer;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
-import com.blogforum.sso.facade.model.UserVO;
 
 @Component
 public class UserManagerImpl implements UserManager {
 
 	@Autowired
 	private UserServer userServer;
+	
+	/**
+	 * 用户默认密码
+	 */
+	@Value("${user.defaultpwd}")
+	private String defaultPassword;
 
 	@Override
 	public UserAllCountVO getUserCount() {
@@ -84,8 +90,20 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public blogforumResult getUser(String id) {
-		UserVO userVO = userServer.getUserByUserId(id);
-		return blogforumResult.ok(userVO);
+		User user = userServer.getUserByUserId(id);
+		return blogforumResult.ok(user);
+	}
+
+	@Override
+	public blogforumResult updateDefaultPwd(String id, String updateUser) {
+		userServer.updateUserPwd(id, defaultPassword, updateUser);
+		return blogforumResult.ok();
+	}
+
+	@Override
+	public blogforumResult updateUserStatus(String id, Integer status, String updateUser) {
+		userServer.updateUserStatus(id, status, updateUser);
+		return blogforumResult.ok();
 	}
 	
 

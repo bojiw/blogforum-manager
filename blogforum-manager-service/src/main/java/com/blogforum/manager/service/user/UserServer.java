@@ -5,7 +5,6 @@ import java.util.Date;
 import com.blogforum.manager.pojo.page.Page;
 import com.blogforum.manager.pojo.vo.User;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
-import com.blogforum.sso.facade.model.UserVO;
 
 public interface UserServer {
 
@@ -19,7 +18,7 @@ public interface UserServer {
 	 * @author: wwd
 	 * @time: 2017年11月4日
 	 */
-	UserVO  getUserByUserId (String userId);
+	User  getUserByUserId (String userId);
 	
 	
 
@@ -57,7 +56,24 @@ public interface UserServer {
 	
 	
 
+	/**
+	 * 更新用户密码
+	 * 
+	 * @author: wwd
+	 * @time: 2018年3月24日
+	 */
+	void updateUserPwd(String id,String newPassword, String updateUser);
+	
 
+	/**
+	 * 更新用户状态
+	 * @param id
+	 * @param status
+	 * @param updateUser
+	 * @author: wwd
+	 * @time: 2018年3月24日
+	 */
+	void updateUserStatus(String id,Integer status,String updateUser);
 
 
 }

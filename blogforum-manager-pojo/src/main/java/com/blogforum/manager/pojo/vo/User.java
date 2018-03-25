@@ -1,89 +1,98 @@
 package com.blogforum.manager.pojo.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.blogforum.sso.facade.enums.UserStatusEnum;
 
 public class User {
 	/**
 	 * 编号
 	 */
-	private String	id;
+	private String				id;
 	/**
 	 * 登录用户名
 	 */
-	private String	username;
+	private String				username;
 
 	/**
 	 * 角色
 	 */
-	private int		role;
-	
+	private int					role;
+
 	/**
 	 * 角色中文
 	 */
-	private String roleCN;
-	
+	private String				roleCN;
+
 	/**
 	 * Email邮件
 	 */
-	private String	email;
+	private String				email;
 	/**
 	 * 手机号
 	 */
-	private String	iphone;
+	private String				iphone;
 
 	/**
 	 * 最后登录时间
 	 */
-	private Date	loginDate;
+	private Date				loginDate;
 	/**
 	 * 最后登录ip
 	 */
-	private String	loginIp;
+	private String				loginIp;
 	/**
 	 * 状态 0为正常 1为无法登录 2为删除状态 UserStatusEnum
 	 */
-	private Integer	status;
+	private Integer				status;
 
 	/**
 	 * 状态中文
 	 */
-	private String	statusCN;
+	private String				statusCN;
+
+	/**
+	 * 用户状态枚举
+	 */
+	private List<UserStatus>	userStatus;
+
 	/**
 	 * 头像路径
 	 */
-	private String	image;
+	private String				image;
 	/**
 	 * 备注信息
 	 */
-	private String	remarks;
+	private String				remarks;
 	/**
 	 * 所在省份
 	 */
-	private String	provinceLocation;
+	private String				provinceLocation;
 	/**
 	 * 所在城市
 	 */
-	private String	cityLocation;
+	private String				cityLocation;
 	/**
 	 * 出生省份
 	 */
-	private String	birthProvince;
+	private String				birthProvince;
 	/**
 	 * 出生城市
 	 */
-	private String	birthCity;
-	
+	private String				birthCity;
+
 	// 创建时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date createDate; 
+	private Date				createDate;
 
 	// 最后修改时间
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date updateDate; 
+	private Date				updateDate;
 	// 最后修改人
-	private String updateUser; 
+	private String				updateUser;
 
 	public String getId() {
 		return id;
@@ -141,7 +150,6 @@ public class User {
 		this.loginIp = loginIp;
 	}
 
-
 	public String getImage() {
 		return image;
 	}
@@ -185,8 +193,6 @@ public class User {
 	public String getBirthCity() {
 		return birthCity;
 	}
-	
-	
 
 	public String getStatusCN() {
 		return statusCN;
@@ -196,11 +202,9 @@ public class User {
 		this.statusCN = statusCN;
 	}
 
-
 	public void setBirthCity(String birthCity) {
 		this.birthCity = birthCity;
 	}
-	
 
 	public Integer getStatus() {
 		return status;
@@ -241,7 +245,13 @@ public class User {
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
-	
-	
+
+	public List<UserStatus> getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(List<UserStatus> userStatus) {
+		this.userStatus = userStatus;
+	}
 
 }

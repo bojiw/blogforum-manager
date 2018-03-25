@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>修改管理用户信息</title>
+	<title>查看修改用户信息</title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,30 +29,79 @@
 			<div class="row-fluid sortable">		
 				<div class="box span12">
 					<div class="box-header well" data-original-title>
-						<h4><i class="icon-user"></i> 修改管理用户信息</h2>
+						<h4><i class="icon-user"></i> 查看修改用户信息</h2>
 					</div>
                     <div class="ibox-content" style="width:75%;padding-left:20px">
                         <form class="form-horizontal m-t" id="commentForm">
 
                             <div class="form-group" style="margin-left:10%">
-                                <label class="col-sm-2 control-label">密码修改</label>
+                                <label style="float: left;" class="col-sm-2 control-label">用户姓名:</label>
 
                                 <div class="col-sm-10">
-                                    <input type="password" id="password" placeholder="如果需要修改密码请输入新密码" class="form-control">
+                                    <label id="username" class="col-sm-2 control-label"></label>
                                 </div>
                             </div>
+                            <hr style="margin-right:5%">
                             <div class="form-group" style="margin-left:10%">
-                                <label class="col-sm-2 control-label">所属角色</label>
+                                <label style="float: left;" class="col-sm-2 control-label">所属角色:</label>
 
                                 <div class="col-sm-10">
-										<input type="text" style="float: left" class="form-control" id="rolename" autocomplete="off" data-provide="typeahead" style="width: 210px;height: 30px;margin-left: 10px;margin-top: 3px"  placeholder="搜索角色名" / >
-										<input type="hidden" id="roleid" style="float: left;">
+										<label id="role" class="col-sm-2 control-label"></label>
                                 </div>
                             </div>
+                            <hr style="margin-right:5%">
+                            <div class="form-group" style="margin-left:10%">
+                                <label style="float: left;" class="col-sm-2 control-label">邮箱:</label>
+
+                                <div class="col-sm-10">
+										<label id="email" class="col-sm-2 control-label"></label>
+                                </div>
+                            </div>
+                            <hr style="margin-right:5%">
+                            <div class="form-group" style="margin-left:10%">
+                                <label style="float: left;" class="col-sm-2 control-label">手机号:</label>
+
+                                <div class="col-sm-10">
+										<label id="iphone" class="col-sm-2 control-label"></label>
+                                </div>
+                            </div>
+                            <hr style="margin-right:5%">
+                            <div class="form-group" style="margin-left:10%">
+                                <label style="float: left;" class="col-sm-2 control-label">注册时间:</label>
+
+                                <div class="col-sm-10">
+										<label id="createDate" class="col-sm-2 control-label"></label>
+                                </div>
+                            </div>
+                            <hr style="margin-right:5%">
+                            <div class="form-group" style="margin-left:10%">
+                                <label style="float: left;" class="col-sm-2 control-label">最近一次修改时间:</label>
+
+                                <div class="col-sm-10">
+										<label id="updateDate" class="col-sm-2 control-label"></label>
+                                </div>
+                            </div>
+                            <hr style="margin-right:5%">
+                            <div class="form-group" style="margin-left:10%">
+                                <label style="float: left;" class="col-sm-2 control-label">最近一次修改用户:</label>
+
+                                <div class="col-sm-10">
+										<label id="updateUser" class="col-sm-2 control-label"></label>
+                                </div>
+                            </div>
+                            <hr style="margin-right:5%">
+                            <div class="form-group" style="margin-left:10%">
+                                <label style="float: left;" class="col-sm-2 control-label">状态</label>
+                                <div class="col-sm-3">
+									<select class="m-wrap" id="status">
+									</select>
+								</div>
+                            </div>
+
                             
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-3" style="padding-top:20px;margin-left:60%">
-                                    <button class="btn btn-primary" id="edit" type="button">提交</button>
+                                    <button class="btn btn-primary" id="edit" type="button">修改状态</button>
                                 </div>
                             </div>
                         </form>
@@ -75,19 +124,32 @@
 				if(data.status != "200"){
 					layer.msg(data.msg);
 				}else{
-					$("#rolename").val(data.data.role.name);
-					$("#roleid").val(data.data.role.id)
+					
+					var user = data.data.data;
+					console.info(user.username);
+					$("#username").html(user.username);
+					$("#role").html(user.roleCN);
+					$("#email").html(user.email);
+					$("#iphone").html(user.iphone);
+					$("#createDate").html(timeStamp2String(user.createDate));
+					$("#updateDate").html(timeStamp2String(user.updateDate));
+					$("#loginDate").html(timeStamp2String(user.loginDate));
+					$("#updateUser").html(user.updateUser);
+					$("#email").html(user.email);
+					
+					jQuery.each(user.userStatus,function(i,item){
+						$("#status").append("<option value=" + item.statusCode + ">" + item.statusCn + "</option>");
+					});
+					$("#status").val(user.status);
 				}
 			})
 			
 			var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 			$("#edit").click(function(){
-				var password = $("#password").val();
-				var roleid = $("#roleid").val();
-				$.post("edit.action",{
+				var status = $("#status").val();
+				$.post("updateStatus.action",{
 						id:id,
-						password:password,
-						roleId:roleid
+						status:status
 					},function(data){
 						if(data == "no permision"){
 							layer.msg("没有权限");
@@ -110,55 +172,14 @@
 	        }
 			
 			
-			//typeahead搜索角色名
-			$('#rolename').typeahead({
-				source: function(query, process){
-					//ajax请求当前用户下所有的笔记
-		            return $.ajax({
-		                url: "/role/queryList.action",
-		                type: 'get',
-		                data: {pageNo: 0,pageSize:-1},
-		                success: function (result) {
-							if(result == "no permision"){
-								layer.msg("没有权限");
-								return;
-							}
-		    				if(result.status != "200") {
-		    					layer.msg(data.msg);
-		    				}else{
-		                    	//对返回的结果进行处理 只需要id和name
-		                        var resultList = result.data.list.map(function (item) {
-		                            var aItem = {id: item.id, name: item.name};
-		                            //转换成json
-		                            return JSON.stringify(aItem);
-		                        });
-		                        return process(resultList);
-		    				}
-
-		                },
-		            });
-				},
-				items : 15,
-				//只对name进行匹配
-			    matcher: function (obj) {
-			        var item = JSON.parse(obj);
-			        return ~item.name.toLowerCase().indexOf(this.query.toLowerCase())
-			    },
-				//只对name进行高亮显示
-		        highlighter: function (obj) {
-		            var item = JSON.parse(obj);
-		            var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&');
-		            return item.name.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
-		                return '<strong>' + match + '</strong>'
-		            });
-		        },
-		        //选择要搜索的笔记 只设置input框的内容为name  并且设置当前选中的笔记本id和name  然后加载当前笔记本下的笔记
-		        updater: function (obj) {
-		            var item = JSON.parse(obj);
-		            $("#roleid").attr("value",item.id);
-		            return item.name;
-		        }
-			})
+			function timeStamp2String(time){  
+			    var datetime = new Date();  
+			    datetime.setTime(time);  
+			    var year = datetime.getFullYear();  
+			    var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;  
+			    var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();  
+			    return year + "-" + month + "-" + date;  
+			}  
 			
 			
 			</script>

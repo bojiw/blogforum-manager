@@ -124,8 +124,8 @@
 					
 					html += "<td><a style='margin-left:20px' class='btn btn-info' href='javascript:void(0);' onclick=edit('"+ item.id + "') >";
 					html += "<i class='fa fa-edit '></i> </a>";
-					html += "<a style='margin-left:20px' class='btn btn-danger' href='javascript:void(0);' onclick=del('" + item.id + "')>";
-					html += "<i class='fa fa-trash-o '></i></a></td></tr>";
+					html += "<a style='margin-left:20px' class='btn btn-info' href='javascript:void(0);' onclick=updatepwd('" + item.id + "')>";
+					html += "重置密码</a></td></tr>";
 					return html;					
 					
 				}
@@ -135,37 +135,13 @@
 					layer.open({
 					    type: 2,
 					    title:'修改',
-					    area: ['20%', '43%'],
+					    area: ['30%', '80%'],
 					    shift:1,
 					    content: "/user/edit.jsp?id=" + id ,
 					    end: function() {   
 					    	showlist($("#pageNo").val(),$("#pageSize").val());
 					    }
 					});	
-				}
-				
-				//点击删除 
-				function del(id){
-					layer.confirm('确定删除吗', {
-						  btn: ['确定','取消'] //按钮
-						}, function(){
-							$.post("/user/del.action",{
-								id:id
-							},function(data){
-								if(data == "no permision"){
-									layer.msg("没有权限");
-									return;
-								}
-								if(data.status != "200"){
-									layer.msg(data.msg);
-								}else{
-									layer.msg("删除成功");
-									showlist(1,5);
-								}
-							});
-						}, function(){
-							
-						});
 				}
 				
 				
@@ -215,6 +191,31 @@
 					
 				}
 			
+				
+				//重置密码
+				function updatepwd(id){
+					layer.confirm('确定重置默认密码吗', {
+						  btn: ['确定','取消'] //按钮
+						}, function(){
+							$.post("/user/updateDefaultPwd.action",{
+								id:id
+							},function(data){
+								if(data == "no permision"){
+									layer.msg("没有权限");
+									return;
+								}
+								if(data.status != "200"){
+									layer.msg(data.msg);
+								}else{
+									layer.msg("重置密码成功");
+									showlist(1,5);
+								}
+							});
+						}, function(){
+							
+						});
+				}
+				
 				
 				function timeStamp2String(time){  
 				    var datetime = new Date();  

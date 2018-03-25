@@ -9,10 +9,13 @@ import org.springframework.stereotype.Component;
 import com.blogforum.manager.integration.user.UserServerFacadeClient;
 import com.blogforum.manager.pojo.page.Page;
 import com.blogforum.manager.pojo.vo.User;
+import com.blogforum.manager.pojo.vo.UserStatus;
 import com.blogforum.manager.service.user.UserServer;
 import com.blogforum.sso.facade.enums.RoleEnum;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
 import com.blogforum.sso.facade.model.SsoPage;
+import com.blogforum.sso.facade.model.SsoUpdateUserPwd;
+import com.blogforum.sso.facade.model.SsoUpdateUserStatus;
 import com.blogforum.sso.facade.model.SsoUserPageRequest;
 import com.blogforum.sso.facade.model.UserVO;
 import com.google.common.collect.Lists;
@@ -24,8 +27,18 @@ public class UserServerImpl implements UserServer {
 	private UserServerFacadeClient userServerFacadeClient;
 
 	@Override
-	public UserVO getUserByUserId(String userId) {
-		return userServerFacadeClient.getUserByUserId(userId);
+	public User getUserByUserId(String userId) {
+		UserVO userVO = userServerFacadeClient.getUserByUserId(userId);
+		User user = buildUser(userVO);
+		List<UserStatus> userStatus = Lists.newArrayList();
+		for (UserStatusEnum statusEnum: UserStatusEnum.values()) {
+			UserStatus status = new UserStatus();
+			status.setStatusCode(statusEnum.getValue());
+			status.setStatusCn(statusEnum.getChinese());
+			userStatus.add(status);
+		}
+		user.setUserStatus(userStatus);
+		return user;
 	}
 
 	@Override
@@ -77,6 +90,25 @@ public class UserServerImpl implements UserServer {
 	@Override
 	public Integer getDateInUser(Date startDate, Date endDate, UserStatusEnum status) {
 		return userServerFacadeClient.getDateInUser(startDate, endDate, status);
+	}
+
+	@Override
+	public void updateUserPwd(String id, String newPassword, String updateUser) {
+		SsoUpdateUserPwd updatePwd = new SsoUpdateUserPwd();
+		updatePwd.setUserId(id);
+		updatePwd.setNewPassword(newPassword);
+		updatePwd.setUpdateUser(updateUser);
+		userServerFacadeClient.updateUserPwd(updatePwd);
+	}
+
+	@Override
+	public void updateUserStatus(String id, Integer status, String updateUser) {
+		
+		SsoUpdateUserStatus updateUserStatus = new SsoUpdateUserStatus();
+		updateUserStatus.setUserId(id);
+		updateUserStatus.setUpdateUser(updateUser);
+		updateUserStatus.setStatus(UserStatusEnum.getStatusByValue(status));
+		userServerFacadeClient.updateUserStatus(updateUserStatus);
 	}
 
 }

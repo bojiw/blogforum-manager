@@ -8,6 +8,8 @@ import com.blogforum.common.tools.rpc.ServiceTemplate;
 import com.blogforum.manager.integration.user.UserServerFacadeClient;
 import com.blogforum.sso.facade.enums.UserStatusEnum;
 import com.blogforum.sso.facade.model.SsoPage;
+import com.blogforum.sso.facade.model.SsoUpdateUserPwd;
+import com.blogforum.sso.facade.model.SsoUpdateUserStatus;
 import com.blogforum.sso.facade.model.SsoUserPageRequest;
 import com.blogforum.sso.facade.model.UserVO;
 import com.blogforum.sso.facade.user.UserServerFacade;
@@ -62,10 +64,35 @@ public class UserServerFacadeClientImpl implements UserServerFacadeClient {
 			}
 		});
 	}
+	
+	
+	@Override
+	public Boolean updateUserPwd(final SsoUpdateUserPwd updatePwd) {
+		return ServiceTemplate.invoke(new BaseInvocation<Boolean>() {
+
+			@Override
+			public Result<Boolean> execute() {
+				return userServerFacade.updateUserPwd(updatePwd);
+			}
+		});
+	}
+
+	@Override
+	public Boolean updateUserStatus(final SsoUpdateUserStatus updateStatus) {
+		return ServiceTemplate.invoke(new BaseInvocation<Boolean>() {
+
+			@Override
+			public Result<Boolean> execute() {
+				return userServerFacade.updateUserStatus(updateStatus);
+			}
+		});
+	}
 
 	public void setUserServerFacade(UserServerFacade userServerFacade) {
 		this.userServerFacade = userServerFacade;
 	}
+
+
 	
 
 }
